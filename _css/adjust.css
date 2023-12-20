@@ -54,7 +54,7 @@
 .franklin-content { padding-left: 5%; }
 .franklin-content { padding-right: 5%; }
 
-@media  {
+@media {
   #menu {
     width: 100%;
     margin-top: 75px;
@@ -70,9 +70,9 @@
     float: none;
     width: 100%;
   }
-  .franklin-content { width: 660px; }
+  /* .franklin-content { width: 660px; } */
 }
 
 @media (min-width: 1000px) {
-  .franklin-content { width: 660px; }
+  /* .franklin-content { width: 660px; } */
 }
