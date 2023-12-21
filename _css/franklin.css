@@ -127,14 +127,14 @@ h6 {
 
 .franklin-content h1 {
   padding-bottom: 0.5em;
-  border-bottom: 3px double #a8a8a8;
+  /* border-bottom: 3px double #a8a8a8; */
   margin-top: 1.5em;
   margin-bottom: 1em;
 }
 
 .franklin-content h2 {
   padding-bottom: 0.5em;
-  border-bottom: 1px solid #a8a8a8;
+  /* border-bottom: 1px solid #a8a8a8; */
   margin-top: 2em;
   margin-bottom: 1em;
 }
@@ -373,4 +373,27 @@ code {
   padding: 0.5em 10px;
   margin: 1.5em 10px;
   border-left: 7px solid #c1198f;
+}
+
+
+/**********************************************************************
+*                             blog posts                             *
+**********************************************************************/
+
+
+/* blog posts */
+ul.blog-posts {
+  list-style-type: none;
+  padding: unset;
+}
+
+ul.blog-posts li {
+  display: flex;
+}
+
+ul.blog-posts li span {
+  flex: 0 0 130px;
+}
+
+ul.blog-posts li a:visited {
 }
