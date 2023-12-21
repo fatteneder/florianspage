@@ -4,6 +4,7 @@
 
 :root {
   --block-color: #abb5be;
+  --colbox-background: hsla(276.4, 22.1%, 29.2%, 0.73);
   /* --block-background: hsla(276.4, 22.1%, 29.2%, 0.73); */
   /* --block-background: hsl(0, 0%, 94%); */
   --output-background: hsl(0, 0%, 98%);
@@ -69,7 +70,7 @@ html {
   color: #a6a2a0;
   text-align: center;
   margin-top: 6em;
-  border-top: 1px solid lightgrey;
+  border-top: 3px double lightgrey;
   padding-top: 2em;
   margin-bottom: 4em;
   line-height: 1.2em;
@@ -139,8 +140,33 @@ h6 {
   margin-bottom: 1em;
 }
 
-.franklin-content h1 a { color: inherit; }
+/* .franklin-content h1 a { color: inherit; } */
+.franklin-content h1 a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 10px;
+}
 /* .franklin-content h1 a:hover { text-decoration: none; } */
+.franklin-content h1 a::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  bottom: 7px;
+  left: 10px;
+  right: 10px;
+  background-color: var(--ul-after-backgroundcolor);
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.franklin-content h1 a:hover {
+  text-decoration: none;
+}
+.franklin-content h1 a:hover::after {
+  visibility: visible;
+  transform: scaleX(1);
+}
 .franklin-content h2 a { color: inherit; }
 /* .franklin-content h2 a:hover { text-decoration: none; } */
 .franklin-content h3 a { color: inherit; }
@@ -197,9 +223,9 @@ td {
   text-decoration: none;
 }
 
-.franklin-content a:hover {
-  text-decoration: underline;
-}
+/* .franklin-content a:hover { */
+/*   text-decoration: underline; */
+/* } */
 
 /* ==================================================================
     HYPERREFS AND FOOTNOTES
@@ -329,14 +355,8 @@ code {
 ================================================================== */
 
 .franklin-content .colbox-blue {
-  background-color: #eef3f5;
-  padding-top: 5px;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-bottom: 5px;
-  margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border-radius: 0 10px 10px 0;
-  border-left: 5px solid #4c9cf1;
+  background-color: var(--colbox-background);
+  padding: 0.5em 10px;
+  margin: 1.5em 10px;
+  border-left: 7px solid #c1198f;
 }

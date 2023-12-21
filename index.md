@@ -1,14 +1,22 @@
 @def title = "Florian's page"
 @def tags = ["syntax", "code"]
 
-# Welcome to Florian's page
+# Hi there and welcome to Florian's page
 
 
 > **Ideas are cheap, execution matters!**
-> Someone on the internet   
+> \\
+> -- Someone on the internet
+
+---
 
 
-\tableofcontents <!-- you can use \toc as well -->
+@@colbox-blue
+This page is currently under construction.
+@@
+
+
+<!-- \tableofcontents [> you can use \toc as well <] -->
 
 
 <!-- This section is meant as a refresher if you're new to Franklin. -->
