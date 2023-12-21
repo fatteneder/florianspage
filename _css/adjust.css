@@ -23,7 +23,7 @@
 }
 
 #menu ul li a {
-  color: var(--ul-color);
+  color: var(--link-color);
   text-decoration: none;
   position: relative;
   padding: 10px 10px;
@@ -36,7 +36,7 @@
   bottom: 7px;
   left: 10px;
   right: 10px;
-  background-color: var(--ul-after-backgroundcolor);
+  background-color: var(--link-underline-color);
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
