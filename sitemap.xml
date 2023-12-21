@@ -8,19 +8,19 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>menu2/index.html</loc>
+    <loc>blog/helloweb/index.html</loc>
     <lastmod>2023-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>menu3/index.html</loc>
+    <loc>blog/index.html</loc>
     <lastmod>2023-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>menu1/index.html</loc>
+    <loc>projects/index.html</loc>
     <lastmod>2023-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
