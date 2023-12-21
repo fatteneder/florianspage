@@ -3,11 +3,15 @@
 ================================================================== */
 
 :root {
-  --block-background: hsl(0, 0%, 94%);
+  --block-color: #abb5be;
+  /* --block-background: hsla(276.4, 22.1%, 29.2%, 0.73); */
+  /* --block-background: hsl(0, 0%, 94%); */
   --output-background: hsl(0, 0%, 98%);
   --small: 14px;
   --normal: 19px;
   --text-color: hsv(0, 0%, 20%);
+  --ul-after-backgroundcolor: #09790b;
+  --ul-color: #e7c26b;
 }
 
 /* ==================================================================
@@ -60,7 +64,7 @@ html {
 }
 
 .page-foot {
-  font-size: 80%;
+  font-size: 60%;
   font-family: Arial, serif;
   color: #a6a2a0;
   text-align: center;
@@ -68,6 +72,7 @@ html {
   border-top: 1px solid lightgrey;
   padding-top: 2em;
   margin-bottom: 4em;
+  line-height: 1.2em;
 }
 
 /* ==================================================================
@@ -122,30 +127,30 @@ h6 {
 
 .franklin-content h1 {
   padding-bottom: 0.5em;
-  border-bottom: 3px double lightgrey;
+  border-bottom: 3px double #a8a8a8;
   margin-top: 1.5em;
   margin-bottom: 1em;
 }
 
 .franklin-content h2 {
   padding-bottom: 0.3em;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid #a8a8a8;
   margin-top: 2em;
   margin-bottom: 1em;
 }
 
 .franklin-content h1 a { color: inherit; }
-.franklin-content h1 a:hover { text-decoration: none; }
+/* .franklin-content h1 a:hover { text-decoration: none; } */
 .franklin-content h2 a { color: inherit; }
-.franklin-content h2 a:hover { text-decoration: none; }
+/* .franklin-content h2 a:hover { text-decoration: none; } */
 .franklin-content h3 a { color: inherit; }
-.franklin-content h3 a:hover { text-decoration: none; }
+/* .franklin-content h3 a:hover { text-decoration: none; } */
 .franklin-content h4 a { color: inherit; }
-.franklin-content h4 a:hover { text-decoration: none; }
+/* .franklin-content h4 a:hover { text-decoration: none; } */
 .franklin-content h5 a { color: inherit; }
-.franklin-content h5 a:hover { text-decoration: none; }
+/* .franklin-content h5 a:hover { text-decoration: none; } */
 .franklin-content h6 a { color: inherit; }
-.franklin-content h6 a:hover { text-decoration: none; }
+/* .franklin-content h6 a:hover { text-decoration: none; } */
 
 .franklin-content table {
   margin-left: auto;
@@ -166,6 +171,7 @@ td {
 }
 
 .franklin-content blockquote {
+  color: var(--block-color);
   background: var(--block-background);
   border-left: 7px solid #a8a8a8;
   margin: 1.5em 10px;
