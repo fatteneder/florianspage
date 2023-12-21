@@ -3,6 +3,7 @@
 ================================================================== */
 
 :root {
+  --body-color: #1f2d3c;
   --block-color: #abb5be;
   --colbox-background: hsla(276.4, 22.1%, 29.2%, 0.73);
   --output-background: hsl(0, 0%, 98%);
