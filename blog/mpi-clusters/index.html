@@ -1,0 +1,73 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/libs/highlight/styles/github.min.css"> <link rel=stylesheet  href="/css/franklin.css"> <link rel=stylesheet  href="/css/tufte.css"> <link rel=stylesheet  href="/css/latex.css"> <link rel=stylesheet  href="/css/adjust.css"> <link rel=icon  href="/assets/logo.svg"> <title>Minimal project to test MPI with Slurm queue</title> <div id=layout > <div id=menu > <ul> <li><a href="/">Home</a> <li><a href="/blog">Blog</a> <li><a href="/projects/">Projects</a> <li><a href="https://github.com/fatteneder">Github</a> </ul> </div> <div id=main > <div class=franklin-content ><h1 id=a_minimal_project_to_test_mpi_support_on_a_slurm_managed_cluster ><a href="#a_minimal_project_to_test_mpi_support_on_a_slurm_managed_cluster" class=header-anchor >A minimal project to test <code>MPI</code> support on a <code>Slurm</code> managed cluster</a></h1> <p>Here is a minimal <code>C</code> program, together with a job script that can be used to test a <code>MPI hello world</code> program on a <code>Slurm</code> managed cluster. Below we provide configs and batch scripts that utilize the <code>test</code> partitions of the following supercomputers or clusters:</p> <ul> <li><p><code>SUPERMUC-NG</code> @ LRZ Munich: <a href="https://doku.lrz.de/using-supermuc-ng-11482518.html">docs</a></p> <li><p><code>ARA</code> @ FSU Jena: <a href="https://ara-wiki.rz.uni-jena.de/Hauptseite">docs</a></p> </ul> <hr /> <h2 id=instructions ><a href="#instructions" class=header-anchor >Instructions</a></h2> <ol> <li><p>Copy the below files <code>mwe.c, mwe.job, Makefile, moduleinit.sh</code> into a folder <code>mwe</code> in your home directory on the cluster.</p> <li><p>Update <code>moduleinit.sh</code> and replace the fields <code>&lt;your-email-address&gt;,&lt;project-account-name&gt;,&lt;username&gt;</code> accordingly.</p> <li><p>Run</p> </ol> <pre><code class="sh hljs"><span class=hljs-built_in >cd</span> mwe
+<span class=hljs-built_in >source</span> moduleinit.sh <span class=hljs-comment ># make sure that the output directory specified here actually exists on disk</span>
+make
+sbatch mwe.job</code></pre> <ol start=4 > <li><p>Wait till your job completes &#40;check with <code>squeue -u &quot;&lt;username&gt;&quot; -i 10</code>&#41;.</p> <li><p>Observe the output in the respective output folder.</p> </ol> <hr /> <code>mwe.c</code> <pre><code class="c hljs"><span class=hljs-meta >#<span class=hljs-keyword >include</span> <span class=hljs-string >&lt;mpi.h&gt;</span></span>
+<span class=hljs-meta >#<span class=hljs-keyword >include</span> <span class=hljs-string >&lt;stdio.h&gt;</span></span>
+
+<span class=hljs-comment >// from https://mpitutorial.com/tutorials/mpi-hello-world/</span>
+<span class=hljs-type >int</span> <span class="hljs-title function_">main</span><span class=hljs-params >(<span class=hljs-type >int</span> argc, <span class=hljs-type >char</span>** argv)</span> {
+    <span class=hljs-comment >// Initialize the MPI environment</span>
+    MPI_Init(<span class=hljs-literal >NULL</span>, <span class=hljs-literal >NULL</span>);
+
+    <span class=hljs-comment >// Get the number of processes</span>
+    <span class=hljs-type >int</span> world_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+    <span class=hljs-comment >// Get the rank of the process</span>
+    <span class=hljs-type >int</span> world_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+
+    <span class=hljs-comment >// Get the name of the processor</span>
+    <span class=hljs-type >char</span> processor_name[MPI_MAX_PROCESSOR_NAME];
+    <span class=hljs-type >int</span> name_len;
+    MPI_Get_processor_name(processor_name, &amp;name_len);
+
+    <span class=hljs-comment >// Print off a hello world message</span>
+    <span class=hljs-built_in >printf</span>(<span class=hljs-string >&quot;Hello world from processor %s, rank %d out of %d processors\n&quot;</span>,
+           processor_name, world_rank, world_size);
+
+    <span class=hljs-comment >// Finalize the MPI environment.</span>
+    MPI_Finalize();
+}</code></pre> <code>Makefile</code> <pre><code class="julia hljs">all:
+    mpicc mwe.c -o mwe</code></pre> <p><code>moduleinit.sh</code> &#40;for SUPERMUC-NG&#41;</p> <pre><code class="bash hljs"><span class=hljs-meta >#!/usr/bin/env bash</span>
+
+module load slurm_setup
+module load intel-oneapi-compilers/2021.4.0</code></pre> <p><code>moduleinit.sh</code> &#40;for ARA&#41;</p> <pre><code class="bash hljs"><span class=hljs-meta >#!/usr/bin/env bash</span>
+
+module load mpi/openmpi/4.1.2-gcc-10.2.0</code></pre> <p><code>mwe.job</code> &#40;for SUPERMUC-NG&#41;</p> <pre><code class="bash hljs"><span class=hljs-meta >#!/usr/bin/env bash</span>
+<span class=hljs-comment >#SBATCH --time=0-0:30:00</span>
+<span class=hljs-comment >#SBATCH --job-name=mwe</span>
+<span class=hljs-comment >#SBATCH --mail-type=END,FAIL</span>
+<span class=hljs-comment >#SBATCH --mail-user=&lt;your-email-address&gt;</span>
+<span class=hljs-comment >#SBATCH --output=/hppfs/scratch/00/&lt;username&gt;/mwe.out</span>
+<span class=hljs-comment >#SBATCH --error=/hppfs/scratch/00/&lt;username&gt;/mwe.err</span>
+<span class=hljs-comment >#SBATCH --partition=test</span>
+<span class=hljs-comment >#SBATCH --nodes=2</span>
+<span class=hljs-comment >#SBATCH --ntasks=48</span>
+<span class=hljs-comment >#SBATCH --ntasks-per-node=48</span>
+<span class=hljs-comment >#SBATCH --ntasks-per-core=1</span>
+<span class=hljs-comment >#SBATCH --no-requeue</span>
+<span class=hljs-comment >#SBATCH --account=&lt;project-account-name&gt;</span>
+<span class=hljs-comment >#SBATCH --get-user-env</span>
+<span class=hljs-comment >#SBATCH --export=NONE</span>
+
+<span class=hljs-comment ># /hppfs/scratch/00/&lt;username&gt; is the working partition</span>
+<span class=hljs-comment ># /dss/dsshome1/00/&lt;username&gt; is my home directory</span>
+<span class=hljs-built_in >source</span> /dss/dsshome1/00/&lt;username&gt;/mwe/moduleinit.sh
+mpiexec /dss/dsshome1/00/&lt;username&gt;/mwe/mwe</code></pre> <p><code>mwe.job</code> &#40;for ARA&#41;</p> <pre><code class="bash hljs"><span class=hljs-meta >#!/usr/bin/env bash</span>
+<span class=hljs-comment >#SBATCH --time=0-0:30:00</span>
+<span class=hljs-comment >#SBATCH --job-name=mwe</span>
+<span class=hljs-comment >#SBATCH --mail-type=END,FAIL</span>
+<span class=hljs-comment >#SBATCH --mail-user=&lt;your-email-address&gt;</span>
+<span class=hljs-comment >#SBATCH --output=/beegfs/&lt;username&gt;/mwe.out</span>
+<span class=hljs-comment >#SBATCH --error=/beegfs/&lt;username&gt;/mwe.err</span>
+<span class=hljs-comment >#SBATCH --partition=s_test</span>
+<span class=hljs-comment >#SBATCH --nodes=1</span>
+<span class=hljs-comment >#SBATCH --ntasks=12</span>
+<span class=hljs-comment >#SBATCH --ntasks-per-node=12</span>
+<span class=hljs-comment >#SBATCH --ntasks-per-core=1</span>
+<span class=hljs-comment >#SBATCH --no-requeue</span>
+
+<span class=hljs-comment ># /beegfs is the working partition</span>
+<span class=hljs-built_in >source</span> /home/&lt;username&gt;/mwe/moduleinit.sh
+mpirun /home/&lt;username&gt;/mwe/mwe</code></pre> <div class=page-foot > <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Florian Atteneder. Last modified: April 27, 2024. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>. </div> </div> </div> </div> <script src="/libs/highlight/highlight.min.js"></script> <script>hljs.highlightAll();hljs.configure({tabReplace: ' '});</script>

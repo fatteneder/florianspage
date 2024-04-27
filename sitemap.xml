@@ -3,25 +3,31 @@
 
 <url>
     <loc>index.html</loc>
-    <lastmod>2023-12-21</lastmod>
+    <lastmod>2024-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
     <loc>blog/helloweb/index.html</loc>
-    <lastmod>2023-12-21</lastmod>
+    <lastmod>2024-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
     <loc>blog/index.html</loc>
-    <lastmod>2023-12-21</lastmod>
+    <lastmod>2024-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
     <loc>projects/index.html</loc>
-    <lastmod>2023-12-21</lastmod>
+    <lastmod>2024-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>blog/mpi-clusters/index.html</loc>
+    <lastmod>2024-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
