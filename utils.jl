@@ -21,11 +21,17 @@ Plug in the list of blog posts contained in the `/blog/` folder.
         ps  = splitext(p)[1]
         url = "/blog/$ps/"
         surl = strip(url, '/')
-        pubdate = pagevar(surl, :published)
+        pubdate = pagevar(surl, :published, default=nothing)
         if isnothing(pubdate)
+            @label ctime
             return Date(Dates.unix2datetime(stat(surl * ".md").ctime))
         end
-        return Date(pubdate, dateformat"d U Y")
+        date = try
+            Date(pubdate, dateformat"d-U-Y")
+        catch e
+            @goto ctime
+        end
+        return date
     end
     sort!(list, by=sorter, rev=true)
 
@@ -41,10 +47,15 @@ Plug in the list of blog posts contained in the `/blog/` folder.
         surl = strip(url, '/')
         title = pagevar(surl, :title)
         pubdate = pagevar(surl, :published)
-        if isnothing(pubdate)
-            date    = "$curyear-$curmonth-$curday"
+        date = if isnothing(pubdate)
+            @label today
+            "$curyear-$curmonth-$curday"
         else
-            date    = Date(pubdate, dateformat"d U Y")
+            try
+                Date(pubdate, dateformat"d U Y")
+            catch
+                @goto today
+            end
         end
         write(io, """$date</i></span><a href="$url">$title</a>""")
     end
